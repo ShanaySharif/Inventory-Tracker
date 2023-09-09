@@ -15,6 +15,18 @@ class CoffeeControl extends React.Component {
       this.handleClick = this.handleClick.bind(this);
     }
     
+    handleClick = () => {
+      if (this.state.selectedCoffee != null) {
+        this.setState({
+          formVisibleOnPage: false,
+          selectedCoffee: null
+        });
+      } else {
+        this.setState(prevState => ({
+          formVisibleOnPage: !prevState.formVisibleOnPage,
+        }));
+      }
+    }
 
     render(){
       let currentlyVisibleState = null;
@@ -24,7 +36,7 @@ class CoffeeControl extends React.Component {
         currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} />
         buttonText = "Return to Coffee List";
     }
-    else if (this.state.formVisiblePage) {
+    else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList}/>;
       buttonText = "Return to Coffee List";
     } else { 
