@@ -12,31 +12,32 @@ class CoffeeControl extends React.Component {
         mainCoffeeList: [],
         selectedCoffee: null,
       };
-
+      this.handleClick = this.handleClick.bind(this);
     }
-  }
+    
 
-  render(){
-    let currentlyVisibleState = null;
-    let buttonText = null; 
-
-    if (this.state.selectedCoffee != null) {
-      currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} />
+    render(){
+      let currentlyVisibleState = null;
+      let buttonText = null; 
+  
+      if (this.state.selectedCoffee != null) {
+        currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} />
+        buttonText = "Return to Coffee List";
+    }
+    else if (this.state.formVisiblePage) {
+      currentlyVisibleState = <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList}/>;
       buttonText = "Return to Coffee List";
+    } else { 
+      currentlyVisibleState = <CoffeeList coffeeList={
+        this.state.mainCoffeeList} onCoffeeSelection={this.handleChangintSelectedCoffee}/>;
+        buttonText = "Add Coffee";
+    }
+    return (
+      <React.Fragment>
+        {currentlyVisibleState}
+        <button onClick={this.handleClick}>{buttonText}</button> 
+      </React.Fragment>
+    );
+  }  
   }
-  else if (this.state.formVisiblePage) {
-    currentlyVisibleState = <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList}/>;
-    buttonText = "Return to Coffee List";
-  } else { 
-    currentlyVisibleState = <CoffeeList coffeeList={
-      this.state.mainCoffeeList} onCoffeeSelection={this.handleChangintSelectedCoffee}/>;
-      buttonText = "Add Coffee";
-  }
-  return (
-    <React.Fragment>
-      {currentlyVisibleState}
-      <button onClick={this.handleClick}>{buttonText}</button> 
-    </React.Fragment>
-  );
-}
-export default NewCoffeeForm
+export default CoffeeControl
