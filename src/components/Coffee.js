@@ -22,10 +22,4 @@ function Coffee(props){
     whenCoffeeClicked: PropTypes.func // new PropType
   };
 
-
-
-
-
-
-
 export default Coffee;

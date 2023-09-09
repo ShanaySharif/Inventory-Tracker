@@ -14,6 +14,16 @@ class CoffeeControl extends React.Component {
       };
       this.handleClick = this.handleClick.bind(this);
     }
+    handleAddingNewCoffeeToList= (newCoffee) => {
+      const newMainCoffeeList = this.state.mainCoffeeList.concat(newCoffee);
+      this.setState({mainCoffeeList: newMainCoffeeList,formVisibleOnPage: false});
+    }
+    handleChangingSelectedCoffee=(id) => {
+      const selectedCoffee = this.state.mainCoffeeList.filter(
+        (coffee)=> coffee.id === id
+        )[0];
+        this.setState({ selectedCoffee: selectedCoffee });
+    }
     
     handleClick = () => {
       if (this.state.selectedCoffee != null) {
