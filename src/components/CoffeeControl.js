@@ -11,6 +11,7 @@ class CoffeeControl extends React.Component {
       mainCoffeeList: [],
       selectedCoffee: null,
       totalPounds: 0,
+      editing: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -36,6 +37,11 @@ class CoffeeControl extends React.Component {
       mainCoffeeList: newMainCoffeeList,
       selectedCoffee: null
     });
+  }
+
+  handleEditClick = () => {
+    console.log("handleEditClick reached!");
+    this.setState({editing: true});
   }
 
   handleSellCoffee = () => {
@@ -70,9 +76,25 @@ class CoffeeControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
 
+    // if (this.state.selectedCoffee != null) {
+    //   currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} onClickingDelete = {this.handleDeletingCoffee} />
+      
+    //   buttonText = "Return to Coffee Menu";
+
     if (this.state.selectedCoffee != null) {
-      currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} onClickingDelete = {this.handleDeletingCoffee} />
+      currentlyVisibleState = (
+        <div>
+          <CoffeeDetail coffee={this.state.selectedCoffee} />
+          <p>Pounds Left: {this.state.selectedCoffee.poundsLeft}</p>
+          <button onClick={this.handleSellCoffee}>Sell a Pound</button>
+          <button onClick={this.handleDeletingCoffee}>Delete Coffee</button>
+        </div>
+      );
+      
       buttonText = "Return to Coffee Menu";
+  
+
+
 
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (
