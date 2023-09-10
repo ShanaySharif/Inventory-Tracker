@@ -69,7 +69,11 @@ class CoffeeControl extends React.Component {
 
     if (this.state.selectedCoffee !== null) {
       currentlyVisibleState = (
-        <CoffeeDetail coffee={this.state.selectedCoffee} />
+        <div>
+          <CoffeeDetail coffee={this.state.selectedCoffee} />
+          <p>Pounds Left: {this.state.selectedCoffee.poundsLeft}</p>
+          <button onClick={this.handleSellCoffee}>Sell a Pound</button>
+        </div>
       );
       buttonText = "Return to Coffee List";
     } else if (this.state.formVisibleOnPage) {

@@ -37,6 +37,7 @@ function CoffeeDetail(props) {
       <p><em>{coffee.price}</em></p>
       <p><em>{coffee.roast}</em></p>
       <p><strong>Pounds Left: {coffee.poundsLeft}</strong></p> {/* Display pounds left */}
+      
       <hr />
     </React.Fragment>
   );
