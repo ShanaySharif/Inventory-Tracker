@@ -94,19 +94,20 @@ class CoffeeControl extends React.Component {
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
+//2//
 
     if (this.state.editing ) {      
       currentlyVisibleState = <EditCoffeeForm coffee = {this.state.selectedCoffee} 
       onEditCoffee={this.handleEditingCoffeeInList}/>
       buttonText = "Return to Coffee Menu";
     
-
+//3
     } else if (this.state.selectedCoffee != null) {
       currentlyVisibleState =
        <CoffeeDetail
       coffee = {this.state.selectedCoffee} 
        onClickingDelete = {this.handleDeletingCoffee} 
-       onEditCoffee={this.handleEditingCoffeeInList} 
+       onClickingEdit={this.handleEditClick} 
        onClick={this.handleSellCoffee}/>
       buttonText = "Return to Coffee Menu";
     }
@@ -123,14 +124,9 @@ class CoffeeControl extends React.Component {
     //   );
       
     //   buttonText = "Return to Coffee Menu";
-
-    // if (this.state.editing ) {      
-    //   currentlyVisibleState = <EditCoffeeForm coffee = {this.state.selectedCoffee} />
-    //   buttonText = "Return to Coffee Menu";
-    // } else if (this.state.selectedCoffee != null) {
-
-  //....
   
+    //1) ///
+    
     else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (
         <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />
