@@ -11,6 +11,7 @@ class CoffeeControl extends React.Component {
       formVisibleOnPage: false,
       mainCoffeeList: [],
       selectedCoffee: null,
+      totalPounds:0,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,11 +21,17 @@ class CoffeeControl extends React.Component {
     this.setState({ mainCoffeeList: newMainCoffeeList, formVisibleOnPage: false });
   }
 
-  handleChangingSelectedCoffee = (id) => {
-    const selectedCoffee = this.state.mainCoffeeList.find(
-      (coffee) => coffee.id === id
-    );
-    this.setState({ selectedCoffee: selectedCoffee });
+  handleChangingSelectedCoffee = (newCoffee) => {
+    newCoffee.poundsLeft = 130;
+
+    const newMainCoffeeList = [...this.state.mainCoffeeList,newCoffee];
+    const newTotalPounds = this.state.totalPounds + 130;
+    
+    this.setState({
+      mainCoffeeList: newMainCoffeeList,
+      totalPounds: newTotalPounds,
+      formVisibleOnPage: false,
+    });
   }
 
   handleClick = () => {
