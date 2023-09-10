@@ -86,21 +86,32 @@ class CoffeeControl extends React.Component {
       }));
     }
   };
+
+
+
+
+
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
 
+    if (this.state.editing ) {      
+      currentlyVisibleState = <EditCoffeeForm coffee = {this.state.selectedCoffee} 
+      onEditCoffee={this.handleEditingCoffeeInList}/>
+      buttonText = "Return to Coffee Menu";
     
 
-    if (this.state.selectedCoffee != null) {
+    } else if (this.state.selectedCoffee != null) {
       currentlyVisibleState =
        <CoffeeDetail
       coffee = {this.state.selectedCoffee} 
        onClickingDelete = {this.handleDeletingCoffee} 
-       onClickingEdit = {this.handleEditClick} />
-      
+       onEditCoffee={this.handleEditingCoffeeInList} 
+       onClick={this.handleSellCoffee}/>
       buttonText = "Return to Coffee Menu";
     }
+
+
     // if (this.state.selectedCoffee != null) {
     //   currentlyVisibleState = (
     //     <div>
@@ -113,13 +124,14 @@ class CoffeeControl extends React.Component {
       
     //   buttonText = "Return to Coffee Menu";
 
-    if (this.state.editing ) {      
-      currentlyVisibleState = <EditCoffeeForm ticket = {this.state.selectedCoffee} />
-      buttonText = "Return to Coffee Menu";
-    } else if (this.state.selectedCoffee != null) {
+    // if (this.state.editing ) {      
+    //   currentlyVisibleState = <EditCoffeeForm coffee = {this.state.selectedCoffee} />
+    //   buttonText = "Return to Coffee Menu";
+    // } else if (this.state.selectedCoffee != null) {
 
+  //....
   
-    } else if (this.state.formVisibleOnPage) {
+    else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (
         <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />
       );
@@ -129,7 +141,8 @@ class CoffeeControl extends React.Component {
         <CoffeeList
           coffeeList={this.state.mainCoffeeList}
           onCoffeeSelection={this.handleChangingSelectedCoffee}
-          onEditTicket = {this.handleEditingTicketInList}
+          onClickingEdit = {this.handleEditClick}
+          onClick= {this.handleSellCoffee}
         />
       );
       buttonText = "Add Coffee";
