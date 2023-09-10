@@ -14,7 +14,6 @@ class CoffeeControl extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
-
   handleAddingNewCoffeeToList = (newCoffee) => {
     newCoffee.poundsLeft = 130;
     const newMainCoffeeList = [...this.state.mainCoffeeList, newCoffee];
@@ -23,6 +22,14 @@ class CoffeeControl extends React.Component {
       mainCoffeeList: newMainCoffeeList,
       totalPounds: newTotalPounds,
       formVisibleOnPage: false,
+    });
+  }
+
+  handleDeletingCoffee = (id) => {
+    const newMainCoffeeList = this.state.mainCoffeeList.filter(cofffee => coffee.id !== id);
+    this.setState({
+      mainCoffeeList: newMainCoffeeList,
+      selectedCoffee: null
     });
   }
   handleChangingSelectedCoffee = (id) => {
@@ -39,9 +46,7 @@ class CoffeeControl extends React.Component {
       const updatedCoffeeList = this.state.mainCoffeeList.map((coffee) =>
         coffee.id === updatedCoffee.id ? updatedCoffee : coffee
       );
-
       const newTotalPounds = this.state.totalPounds - 1;
-
       this.setState({
         mainCoffeeList: updatedCoffeeList,
         selectedCoffee: updatedCoffee,
@@ -49,7 +54,6 @@ class CoffeeControl extends React.Component {
       });
     }
   }
-
   handleClick = () => {
     if (this.state.selectedCoffee !== null) {
       this.setState({
@@ -62,7 +66,6 @@ class CoffeeControl extends React.Component {
       }));
     }
   };
-
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
@@ -89,7 +92,6 @@ class CoffeeControl extends React.Component {
       );
       buttonText = "Add Coffee";
     }
-
     return (
       <React.Fragment>
         {currentlyVisibleState}
