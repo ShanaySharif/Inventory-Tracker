@@ -1,4 +1,3 @@
-
 import React from "react";
 import NewCoffeeForm from "./NewCoffeeForm";
 import CoffeeList from "./CoffeeList";
@@ -11,54 +10,80 @@ class CoffeeControl extends React.Component {
       formVisibleOnPage: false,
       mainCoffeeList: [],
       selectedCoffee: null,
-      totalPounds:0,
+      totalPounds: 0,
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleAddingNewCoffeeToList = (newCoffee) => {
-    const newMainCoffeeList = this.state.mainCoffeeList.concat(newCoffee);
-    this.setState({ mainCoffeeList: newMainCoffeeList, formVisibleOnPage: false });
-  }
-
-  handleChangingSelectedCoffee = (newCoffee) => {
     newCoffee.poundsLeft = 130;
-
-    const newMainCoffeeList = [...this.state.mainCoffeeList,newCoffee];
+    const newMainCoffeeList = [...this.state.mainCoffeeList, newCoffee];
     const newTotalPounds = this.state.totalPounds + 130;
-    
     this.setState({
       mainCoffeeList: newMainCoffeeList,
       totalPounds: newTotalPounds,
       formVisibleOnPage: false,
     });
   }
+  handleChangingSelectedCoffee = (id) => {
+    const selectedCoffee = this.state.mainCoffeeList.find(
+      (coffee) => coffee.id === id
+    );
+    this.setState({ selectedCoffee: selectedCoffee });
+  }
+  handleSellCoffee = () => {
+    if (this.state.selectedCoffee && this.state.selectedCoffee.poundsLeft > 0) {
+      const updatedCoffee = { ...this.state.selectedCoffee };
+      updatedCoffee.poundsLeft = Math.max(updatedCoffee.poundsLeft - 1, 0);
+
+      const updatedCoffeeList = this.state.mainCoffeeList.map((coffee) =>
+        coffee.id === updatedCoffee.id ? updatedCoffee : coffee
+      );
+
+      const newTotalPounds = this.state.totalPounds - 1;
+
+      this.setState({
+        mainCoffeeList: updatedCoffeeList,
+        selectedCoffee: updatedCoffee,
+        totalPounds: newTotalPounds,
+      });
+    }
+  }
 
   handleClick = () => {
     if (this.state.selectedCoffee !== null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedCoffee: null
+        selectedCoffee: null,
       });
     } else {
       this.setState((prevState) => ({
         formVisibleOnPage: !prevState.formVisibleOnPage,
       }));
     }
-  }
+  };
 
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
 
     if (this.state.selectedCoffee !== null) {
-      currentlyVisibleState = <CoffeeDetail coffee={this.state.selectedCoffee} />
+      currentlyVisibleState = (
+        <CoffeeDetail coffee={this.state.selectedCoffee} />
+      );
       buttonText = "Return to Coffee List";
     } else if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />;
+      currentlyVisibleState = (
+        <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />
+      );
       buttonText = "Return to Coffee List";
     } else {
-      currentlyVisibleState = <CoffeeList coffeeList={this.state.mainCoffeeList} onCoffeeSelection={this.handleChangingSelectedCoffee} />;
+      currentlyVisibleState = (
+        <CoffeeList
+          coffeeList={this.state.mainCoffeeList}
+          onCoffeeSelection={this.handleChangingSelectedCoffee}
+        />
+      );
       buttonText = "Add Coffee";
     }
 
