@@ -2,7 +2,7 @@ import React from "react";
 import NewCoffeeForm from "./NewCoffeeForm";
 import CoffeeList from "./CoffeeList";
 import CoffeeDetail from "./CoffeeDetail";
-import EditTicketForm from './EditCoffeeForm';
+import EditCoffeeForm from './EditCoffeeForm';
 
 
 class CoffeeControl extends React.Component {
@@ -78,9 +78,10 @@ class CoffeeControl extends React.Component {
       this.setState({
         formVisibleOnPage: false,
         selectedCoffee: null,
+        editing: false
       });
     } else {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         formVisibleOnPage: !prevState.formVisibleOnPage,
       }));
     }
@@ -89,14 +90,12 @@ class CoffeeControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
 
-    if (this.state.editing ) {      
-      currentlyVisibleState = <EditCoffeeForm ticket = {this.state.selectedTicket} />
-      buttonText = "Return to Ticket List";
-    } else if (this.state.selectedTicket != null) {
+    
 
     if (this.state.selectedCoffee != null) {
       currentlyVisibleState =
-       <CoffeeDetail coffee = {this.state.selectedCoffee} 
+       <CoffeeDetail
+      coffee = {this.state.selectedCoffee} 
        onClickingDelete = {this.handleDeletingCoffee} 
        onClickingEdit = {this.handleEditClick} />
       
@@ -113,6 +112,12 @@ class CoffeeControl extends React.Component {
     //   );
       
     //   buttonText = "Return to Coffee Menu";
+
+    if (this.state.editing ) {      
+      currentlyVisibleState = <EditCoffeeForm ticket = {this.state.selectedCoffee} />
+      buttonText = "Return to Coffee Menu";
+    } else if (this.state.selectedCoffee != null) {
+
   
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (

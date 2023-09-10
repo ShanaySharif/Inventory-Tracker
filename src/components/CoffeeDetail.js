@@ -12,7 +12,7 @@ function CoffeeDetail(props) {
       <p><em>{coffee.price}</em></p>
       <p><em>{coffee.roast}</em></p>
       <p><strong>Pounds Left: {coffee.poundsLeft}</strong></p> 
-      <button onClick={ props.onClickingEdit }>Update Coffee</button> 
+      <button onClick={ props.onClickingEdit }>Edit Coffee</button> 
 <button onClick={()=> props.onClickingDelete(coffee.id) }>Delete Coffee</button>
       
       <hr />
