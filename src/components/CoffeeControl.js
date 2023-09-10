@@ -2,6 +2,8 @@ import React from "react";
 import NewCoffeeForm from "./NewCoffeeForm";
 import CoffeeList from "./CoffeeList";
 import CoffeeDetail from "./CoffeeDetail";
+import EditTicketForm from './EditCoffeeForm';
+
 
 class CoffeeControl extends React.Component {
   constructor(props) {
@@ -15,6 +17,17 @@ class CoffeeControl extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
   }
+  handleEditingCoffeeInList = (coffeeToEdit) => {
+    const editedMainCoffeeList = this.state.mainCoffeeList
+      .filter(coffee => coffee.id !== this.state.selectedCoffee.id)
+      .concat(coffeeToEdit);
+    this.setState({
+        mainCoffeeList: editedMainCoffeeList,
+        editing: false,
+        selectedCoffee: null
+      });
+  }
+
   handleAddingNewCoffeeToList = (newCoffee) => {
     newCoffee.poundsLeft = 130;
     const newMainCoffeeList = [...this.state.mainCoffeeList, newCoffee];
@@ -76,26 +89,31 @@ class CoffeeControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
 
-    // if (this.state.selectedCoffee != null) {
-    //   currentlyVisibleState = <CoffeeDetail coffee = {this.state.selectedCoffee} onClickingDelete = {this.handleDeletingCoffee} />
-      
-    //   buttonText = "Return to Coffee Menu";
+    if (this.state.editing ) {      
+      currentlyVisibleState = <EditCoffeeForm ticket = {this.state.selectedTicket} />
+      buttonText = "Return to Ticket List";
+    } else if (this.state.selectedTicket != null) {
 
     if (this.state.selectedCoffee != null) {
-      currentlyVisibleState = (
-        <div>
-          <CoffeeDetail coffee={this.state.selectedCoffee} />
-          <p>Pounds Left: {this.state.selectedCoffee.poundsLeft}</p>
-          <button onClick={this.handleSellCoffee}>Sell a Pound</button>
-          <button onClick={this.handleDeletingCoffee}>Delete Coffee</button>
-        </div>
-      );
+      currentlyVisibleState =
+       <CoffeeDetail coffee = {this.state.selectedCoffee} 
+       onClickingDelete = {this.handleDeletingCoffee} 
+       onClickingEdit = {this.handleEditClick} />
       
       buttonText = "Return to Coffee Menu";
+    }
+    // if (this.state.selectedCoffee != null) {
+    //   currentlyVisibleState = (
+    //     <div>
+    //       <CoffeeDetail coffee={this.state.selectedCoffee} />
+    //       <p>Pounds Left: {this.state.selectedCoffee.poundsLeft}</p>
+    //       <button onClick={this.handleSellCoffee}>Sell a Pound</button>
+    //       <button onClick={this.handleDeletingCoffee}>Delete Coffee</button>
+    //     </div>
+    //   );
+      
+    //   buttonText = "Return to Coffee Menu";
   
-
-
-
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (
         <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />
@@ -106,6 +124,7 @@ class CoffeeControl extends React.Component {
         <CoffeeList
           coffeeList={this.state.mainCoffeeList}
           onCoffeeSelection={this.handleChangingSelectedCoffee}
+          onEditTicket = {this.handleEditingTicketInList}
         />
       );
       buttonText = "Add Coffee";
