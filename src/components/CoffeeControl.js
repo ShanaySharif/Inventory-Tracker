@@ -4,7 +4,6 @@ import CoffeeList from "./CoffeeList";
 import CoffeeDetail from "./CoffeeDetail";
 import EditCoffeeForm from './EditCoffeeForm';
 
-
 class CoffeeControl extends React.Component {
   constructor(props) {
     super(props);
@@ -51,12 +50,10 @@ class CoffeeControl extends React.Component {
       selectedCoffee: null
     });
   }
-
   handleEditClick = () => {
     console.log("handleEditClick reached!");
     this.setState({editing: true});
   }
-
   handleSellCoffee = () => {
     if (this.state.selectedCoffee && this.state.selectedCoffee.poundsLeft > 0) {
       const updatedCoffee = { ...this.state.selectedCoffee };
@@ -86,47 +83,24 @@ class CoffeeControl extends React.Component {
       }));
     }
   };
-
-
-
-
-
   render() {
     let currentlyVisibleState = null;
     let buttonText = null;
-//2//
-
     if (this.state.editing ) {      
       currentlyVisibleState = <EditCoffeeForm coffee = {this.state.selectedCoffee} 
       onEditCoffee={this.handleEditingCoffeeInList}/>
       buttonText = "Return to Coffee Menu";
     
-//3
+
     } else if (this.state.selectedCoffee != null) {
       currentlyVisibleState =
        <CoffeeDetail
       coffee = {this.state.selectedCoffee} 
        onClickingDelete = {this.handleDeletingCoffee} 
        onClickingEdit={this.handleEditClick} 
-       onClick={this.handleSellCoffee}/>
+       onSellCoffee={this.handleSellCoffee}/>
       buttonText = "Return to Coffee Menu";
     }
-
-
-    // if (this.state.selectedCoffee != null) {
-    //   currentlyVisibleState = (
-    //     <div>
-    //       <CoffeeDetail coffee={this.state.selectedCoffee} />
-    //       <p>Pounds Left: {this.state.selectedCoffee.poundsLeft}</p>
-    //       <button onClick={this.handleSellCoffee}>Sell a Pound</button>
-    //       <button onClick={this.handleDeletingCoffee}>Delete Coffee</button>
-    //     </div>
-    //   );
-      
-    //   buttonText = "Return to Coffee Menu";
-  
-    //1) ///
-    
     else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = (
         <NewCoffeeForm onNewCoffeeCreation={this.handleAddingNewCoffeeToList} />
