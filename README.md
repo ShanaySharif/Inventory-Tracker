@@ -2,6 +2,8 @@
 
 ## By Shankaron Mohamed 
 
+
+Application's component tree
 <img width="621" alt="Screen Shot 2023-09-11 at 7 59 01 AM" src="https://github.com/ShanaySharif/Inventory-Tracker/assets/134244781/c35f5585-2293-4016-ad8d-68341cdeb0e2">
 
 ## Description 💁 📖
