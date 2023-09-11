@@ -2,6 +2,8 @@
 
 ## By Shankaron Mohamed 
 
+<img width="621" alt="Screen Shot 2023-09-11 at 7 59 01 AM" src="https://github.com/ShanaySharif/Inventory-Tracker/assets/134244781/c35f5585-2293-4016-ad8d-68341cdeb0e2">
+
 ## Description 💁 📖
 This project is a web application for a coffee shop that sells coffee beans in 1-pound servings, each stored in large burlap sacks. The application focuses on CREATE, READ, and UPDATE functionality, with the option to implement DELETE functionality. Here are the key features and user stories:
 
@@ -39,6 +41,7 @@ By implementing these features, the application provides an intuitive interface 
 - Navigate to the project's root directory and execute the command "npm start".
 - Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 - The page will reload when you make changes.
+
 
 ## Known Bugs
 
