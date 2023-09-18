@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function ReusableForm(props) {
+
+  
     return (
         <React.Fragment>
             <form onSubmit={props.formSubmissionHandler}>
@@ -17,10 +19,19 @@ function ReusableForm(props) {
               type='text'
               name='price'
               placeholder='price' />
-            <textarea
+
+              <input
+              type='number'
+              name='poundsAvailabe'
+              placeholder='Pounds Available' />
+
+            <textarea 
               name='roast'
-              placeholder='Roast.' />
+              placeholder='Roast.'></textarea>
+
+
             <button type='submit'>Submit!</button>
+            
           </form>
         </React.Fragment>
       );   

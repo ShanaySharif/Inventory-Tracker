@@ -8,8 +8,12 @@ function EditCoffeeForm (props) {
 
   function handleEditCoffeeFormSubmission(event) {
     event.preventDefault();
-    props.onEditCoffee({names: event.target.names.value, origin: event.target.origin.value, price: event.target.price.value,
+    props.onEditCoffee({
+      names: event.target.names.value, 
+      origin: event.target.origin.value, 
+      price: event.target.price.value,
       roast: event.target.roast.value,
+      poundsAvailabe: event.target.poundsAvailabe.value,
       id: coffee.id});
   }
 
@@ -17,7 +21,7 @@ function EditCoffeeForm (props) {
     <React.Fragment>
       <ReusableForm 
        formSubmissionHandler={handleEditCoffeeFormSubmission} 
-        buttonText="Edit" />
+        buttonText="Update Coffee" />
     </React.Fragment>
   );
 }

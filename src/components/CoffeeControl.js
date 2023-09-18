@@ -28,12 +28,14 @@ class CoffeeControl extends React.Component {
   }
 
   handleAddingNewCoffeeToList = (newCoffee) => {
-    newCoffee.poundsLeft = 130;
-    const newMainCoffeeList = [...this.state.mainCoffeeList, newCoffee];
-    const newTotalPounds = this.state.totalPounds + 130;
+    // newCoffee.poundsAvailabe = 130;
+    console.log(newCoffee)
+    const newMainCoffeeList = 
+     this.state.mainCoffeeList.concat(newCoffee)
+    // const newTotalPounds = this.state.totalPounds + 130;
     this.setState({
       mainCoffeeList: newMainCoffeeList,
-      totalPounds: newTotalPounds,
+      // totalPounds: newTotalPounds,
       formVisibleOnPage: false,
     });
   }
@@ -55,19 +57,15 @@ class CoffeeControl extends React.Component {
     this.setState({editing: true});
   }
   handleSellCoffee = () => {
-    if (this.state.selectedCoffee && this.state.selectedCoffee.poundsLeft > 0) {
-      const updatedCoffee = { ...this.state.selectedCoffee };
-      updatedCoffee.poundsLeft = Math.max(updatedCoffee.poundsLeft - 1, 0);
-
-      const updatedCoffeeList = this.state.mainCoffeeList.map((coffee) =>
-        coffee.id === updatedCoffee.id ? updatedCoffee : coffee
-      );
-      const newTotalPounds = this.state.totalPounds - 1;
-      this.setState({
-        mainCoffeeList: updatedCoffeeList,
-        selectedCoffee: updatedCoffee,
-        totalPounds: newTotalPounds,
-      });
+    if (this.state.selectedCoffee && this.state.selectedCoffee.poundsAvailabe > 0) {
+      const { mainCoffeeList, selectedCoffee } = this.state
+      const index = mainCoffeeList.indexOf(product => product.id === selectedCoffee.id)
+      const pounds = selectedCoffee.poundsAvailabe
+    
+      const updatedCoffee = { ...selectedCoffee, poundsAvailabe: pounds - 1 };
+      mainCoffeeList[index] = updatedCoffee
+      // console.log(this.state.mainCoffeeList, mainCoffeeList)
+      this.setState({ mainCoffeeList, selectedCoffee:updatedCoffee })
     }
   }
   handleClick = () => {
@@ -107,6 +105,9 @@ class CoffeeControl extends React.Component {
       );
       buttonText = "Return to Coffee Menu";
     } else {
+
+      console.log(this.state.mainCoffeeList)
+
       currentlyVisibleState = (
         <CoffeeList
           coffeeList={this.state.mainCoffeeList}
