@@ -29,7 +29,19 @@ The detail page displays the remaining pounds of coffee beans in the sack.
 The application ensures that the quantity of coffee beans in a sack does not go below 0.
 
 By implementing these features, the application provides an intuitive interface for managing and selling coffee beans stored in burlap sacks, making it easy for users to interact with the coffee shop's inventory.
+In the project directory, you can run:
 
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.
 ## Utilized Technologies
 
 - React
